@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<h1>Delete Book</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        Are you sure you want to delete
+        <strong>"{{ object.title }}"</strong>?
+    </p>
+
+    <input type="submit" value="Confirm">
+    <button type="button"
+        onclick="window.location.href='{% url 'book_detail' object.pk %}'">
+    Cancel
+</button>
+
+</form>
+
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+
+<p>
+    <strong>Authors:</strong>
+    {% for author in post.authors.all %}
+        {{ author }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        None
+    {% endfor %}
+</p>
+
+<p>
+    <strong>Categories:</strong>
+    {% for category in post.categories.all %}
+        {{ category }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        None
+    {% endfor %}
+</p>
+
+<p><strong>Publisher:</strong> {{ post.publisher }}</p>
+
+<p>
+    <strong>Publication Date:</strong>
+    {{ post.publication_date|date:"F d, Y" }}
+</p>
+
+{% if post.description %}
+    <p><strong>Description:</strong></p>
+    <p>{{ post.description }}</p>
+{% endif %}
+
+<hr>
+
+<h3>Book Copies</h3>
+
+{% if total_copies > 0 %}
+    <ul>
+        {% for copy in post.copies.all %}
+            <li>
+                    Copy {{ copy.copy_number }}
+                    — {{ copy.copy_type }}
+                    — {{ copy.availability_status }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>
+        <strong>Total copies:</strong> {{ total_copies }}<br>
+        <strong>Available:</strong> {{ available_copies }}<br>
+        <strong>Reference Only:</strong> {{ reference_only_copies }}<br>
+        <strong>Unavailable:</strong> {{ unavailable_copies }}
+    </p>
+{% else %}
+    <p>No copies recorded.</p>
+{% endif %}
+
+<hr>
+
+<p>
+    {% if user.is_staff %}
+        <a href="{% url 'book_update' post.pk %}">Edit</a> |
+        <a href="{% url 'book_delete' post.pk %}">Delete</a> |
+    {% endif %}
+    <a href="{% url 'book' %}">Back to list</a>
+</p>
+
+{% endblock content %}

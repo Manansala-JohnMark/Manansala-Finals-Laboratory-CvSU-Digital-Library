@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="about-container">
+
+    <!-- Logo (same as Home) -->
+    <img src="{% static 'images/logo.png' %}" alt="CvSU Logo" class="cvsu-logo">
+
+    <h1 class="about-title">CvSU Bacoor Digital Library</h1>
+
+    <p class="about-description">
+        The Cavite State University Digital Library is designed to provide students,
+        faculty, and researchers with easy access to academic resources anytime,
+        anywhere. It serves as a centralized platform for managing and discovering
+        books and learning materials efficiently.
+    </p>
+
+    <div class="mv-container">
+        <div class="mv-box">
+            <h2>Mission</h2>
+            <p>
+                Cavite State University shall provide excellent, equitable and relevant
+                educational opportunities in the arts, sciences and technology through
+                quality instruction and responsive research and development activities.
+                It shall produce professional, skilled and morally upright individuals
+                for global competitiveness.
+            </p>
+        </div>
+
+        <div class="mv-box">
+            <h2>Vision</h2>
+            <p>
+                The premier university in historic Cavite globally recognized for
+                excellence in character development, academics, research, innovation,
+                and sustainable community engagement.
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="home-container">
+
+    <img src="{% static 'images/logo.png' %}" class="cvsu-logo">
+
+    <h1 class="home-title">CvSU Bacoor Digital Library</h1>
+
+    <form method="get" action="{% url 'book' %}" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search books, authors, categories..."
+            class="search-input"
+        >
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<div class="book-container">
+
+    <h1 class="book-title">CvSU Bacoor Digital Library</h1>
+
+    <form method="get" class="blog-search-form">
+        <input
+            type="text"
+            name="q"
+            class="book-search-input"
+            placeholder="Search books, authors, categories..."
+            value="{{ request.GET.q }}"
+        >
+        <button type="submit" class="book-search-btn">
+            Search
+        </button>
+
+        {% if request.GET.q %}
+            <a href="{% url 'book' %}" class="book-clear-link">Clear</a>
+        {% endif %}
+    </form>
+
+    {% if user.is_staff %}
+        <p class="add-book">
+            <a href="{% url 'book_create' %}">➕ Add New Book</a>
+        </p>
+    {% endif %}
+
+    {% for post in posts %}
+        <div class="book-card">
+            <h2>
+                <a href="{% url 'book_detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+
+            <p><strong>Authors:</strong>
+                {% for author in post.authors.all %}
+                    {{ author }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </p>
+
+            <p><strong>Categories:</strong>
+                {% for category in post.categories.all %}
+                    {{ category }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </p>
+
+            <p><strong>Publication Date:</strong>
+                {{ post.publication_date|date:"F d, Y" }}
+            </p>
+
+            <p class="book-actions">
+                <a href="{% url 'book_detail' post.pk %}">View</a>
+                {% if user.is_staff %}
+                    | <a href="{% url 'book_update' post.pk %}">Edit</a>
+                    | <a href="{% url 'book_delete' post.pk %}">Delete</a>
+                {% endif %}
+            </p>
+        </div>
+    {% empty %}
+        <p>No books available.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<h1>New Book</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.title.label_tag }}<br>
+    {{ form.title }}<br><br>
+
+    {{ form.authors.label_tag }}<br>
+    {{ form.authors }}<br><br>
+
+    {{ form.categories.label_tag }}<br>
+    {{ form.categories }}<br><br>
+
+    {{ form.publisher.label_tag }}<br>
+    {{ form.publisher }}<br><br>
+
+    {{ form.publication_date.label_tag }}<br>
+    {{ form.publication_date }}<br><br>
+
+    {{ form.description.label_tag }}<br>
+    {{ form.description }}<br><br>
+
+    <h3>Add New Authors / Categories / Publisher</h3>
+    <p>
+        {{ form.new_authors.label_tag }}<br>
+        {{ form.new_authors }}<br>
+        <small>{{ form.new_authors.help_text }}</small>
+    </p>
+
+    <p>
+        {{ form.new_categories.label_tag }}<br>
+        {{ form.new_categories }}<br>
+        <small>{{ form.new_categories.help_text }}</small>
+    </p>
+
+    <h4>New Publisher</h4>
+    <p>
+        {{ form.new_publisher_name.label_tag }}<br>{{ form.new_publisher_name }}
+    </p>
+    <p>
+        {{ form.new_publisher_address.label_tag }}<br>{{ form.new_publisher_address }}
+    </p>
+    <p>
+        {{ form.new_publisher_email.label_tag }}<br>{{ form.new_publisher_email }}
+    </p>
+
+    <h3>Book Copies</h3>
+    {{ copy_formset.management_form }}
+
+    {% for form in copy_formset %}
+        <fieldset style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            {% if form.errors %}
+                <div style="color:red;">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+        </fieldset>
+    {% endfor %}
+
+    <button type="submit">Save</button>
+</form>
+
+{% endblock content %}
